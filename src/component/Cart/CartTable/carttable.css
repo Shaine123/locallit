@@ -1,0 +1,59 @@
+.cart-table{
+  margin: auto;
+  margin-top: 20px;
+}
+
+.cart-table .carttable-th{
+  height: 60px;
+  height: 70px;
+  font-weight: 500;
+  width: 170px;
+  color: var(--SECONDARY);
+  text-align: center;
+  background-color: none;
+  border-bottom: 2px solid var(--PRIMARY);
+}
+.cart-table td:nth-child(1) .cartItem-img{
+  width: 70px;
+  height: 70px;
+  border-radius: 10px;
+}
+.cart-table td{
+  background-color: transparent;
+  border-bottom: 2px solid var(--PRIMARY);
+  padding: 20px 0;
+}
+
+.cart-table tr{
+   padding: 100px;
+}
+.cart-table th:nth-child(5){
+  width: auto;
+}
+.quantity-box{
+   display: flex;
+   justify-content: center;
+   text-align: center;
+   gap: 5px;
+}
+.quantity{
+  color: black;
+  margin-top: 5px;
+}
+.add,.minus{
+   padding: 5px;
+   min-width: 40px;
+   cursor: pointer;
+   border: none;
+   background-color: var(--PRIMARY);
+   color: white;
+   border-radius: 5px;
+}
+
+.cart-table td .delete-btn{
+  color: white;
+  width: 50px;
+  height: 30px;
+  padding-top: 5px;
+  padding-left: 5px;
+}

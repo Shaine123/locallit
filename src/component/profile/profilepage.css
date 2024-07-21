@@ -1,0 +1,113 @@
+.profilepage-container{
+  height: auto;
+  min-height: calc(100vh - 250px);
+  width: 600px;
+  background-color: white;
+  margin: auto;
+  margin-top: 80px;
+  border-radius: 10px;
+  padding: 20px;
+  padding-bottom: 50px;
+}
+.profile-form{
+  height: auto;
+}
+.profilepage-title{
+  text-align: center;
+  color: var(--SECONDARY);
+}
+.profform-container{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.profform-container .select-item{
+   background-color: transparent;
+   border: 1px solid var(--SECONDARY);
+   height: 40px;
+   cursor: pointer;
+   text-align: left;
+   padding-left: 10px;
+   border-radius: 5px 5px 0 0;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   padding-right: 10px;
+   color: gray;
+}
+.profform-container .select-item img{
+ width: 20px;
+ height: auto;
+}
+.profform-container label{
+  color: var(--SECONDARY);
+}
+.profform-container input{
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid var(--SECONDARY);
+  padding-left: 10px;
+}
+
+.profform-container .select-box{
+  border: 1px solid var(--SECONDARY);
+  border-radius: 0 0 5px 5px;
+}
+.profform-container .select-box .select-values{
+  display: flex;
+}
+
+.profform-container .select-box .select-values  .select-value{
+  display: flex;
+  flex-direction: row;
+  padding: 5px;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  cursor: pointer;
+  transition: all ease-in-out 0.5s;
+}
+.profform-container .select-box .select-values .select-value .select-img{
+  width: 45px;
+  height: auto;
+}
+.profform-container .select-box .select-values .select-value .select-desc{
+  color: black;
+  padding: 10px;
+  width: 100%;
+  height: 100%;
+  transition: all ease-in-out 0.5s;
+}
+
+.profform-container .select-box .select-values  .select-value:hover{
+  background-color:#69544f;
+}
+.profform-container .select-box .select-values .select-value .select-desc:hover{
+  color: white;
+}
+
+.profform-container .error-container{
+ padding-left: 5px;
+}
+.profform-container .error-container p {
+   color: red;
+   font-size: 12px;
+}
+.profsubmit-btn{
+   background-color: var(--PRIMARY);
+   border: none;
+   color: white;
+   font-size: 15px;
+   height: 40px;
+   border-radius: 5px;
+   cursor: pointer;
+   transition: all 0.5s ease-in-out;
+}
+.profsubmit-btn:hover{
+   background-color: #acb47c;;
+}
+.profile-form{
+   display: flex;
+   flex-direction: column;
+   width: 100%;
+}

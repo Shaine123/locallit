@@ -1,0 +1,158 @@
+.itempage-container{
+  width: auto;
+  max-width: 90vw;
+  margin: auto;
+}
+.itempage-controls{
+  max-width: 75vw;
+  margin: auto;
+  display: flex;
+  position: relative;
+  padding: 0 20px;
+}
+.itempage-controls .searchinput-container{
+  position: relative;
+}
+.itempage-controls .searchinput-container .search-input{
+  height: 40px;
+  width: 250px;
+  padding-left: 40px;
+  border: 1px solid var(--SECONDARY);
+  border-radius: 5px;
+}
+.itempage-controls .searchinput-container img{
+  position: absolute;
+  left: 8px;
+  width: 22px;
+  height: auto;
+  top: 7px;
+}
+.itempage-controls .addNewItemBtn{
+   position: absolute;
+   right: 0;
+}
+
+
+/*button css*/
+
+.button-50 {
+  appearance: button;
+  background-color: var(--PRIMARY);
+  background-image: none;
+  border: 1px solid #000;
+  border-radius: 4px;
+  box-shadow: #fff 4px 4px 0 0,#000 4px 4px 0 1px;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: ITCAvantGardeStd-Bk,Arial,sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 14px;
+  margin: 0 5px 40px 0;
+  overflow: visible;
+  padding: 12px 10px;
+  text-align: center;
+  text-transform: none;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+  position: absolute;
+  right: 0;
+}
+
+.button-50:focus {
+  text-decoration: none;
+}
+
+.button-50:hover {
+  text-decoration: none;
+}
+
+.button-50:active {
+  box-shadow: rgba(0, 0, 0, .125) 0 3px 5px inset;
+  outline: 0;
+}
+
+.button-50:not([disabled]):active {
+  box-shadow: #fff 2px 2px 0 0, #000 2px 2px 0 1px;
+  transform: translate(2px, 2px);
+}
+
+@media (min-width: 768px) {
+  .button-50 {
+    padding: 12px 50px;
+  }
+}
+table{
+  margin: auto;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+table,tr,th,td{
+   border-collapse: collapse;
+}
+table .itempage-th{
+  height: 80px;
+  font-weight: 500;
+  width: 170px;
+  color: white;
+  background-color: var(--PRIMARY);
+}
+table .itempage-th:nth-child(5){
+   width: 300px;
+}
+table td .itempage-image{
+  height: 100px;
+  width: 100px;
+  border-radius: 10px;
+}
+table td{
+  background-color: white;
+  text-align: center;
+  border-bottom: 2px solid rgba(211, 211, 211, 0.352);
+}
+table td:first-child{
+  padding: 10px;
+}
+table td:nth-child(5){
+  text-align: justify;
+  font-size: 12px;
+  padding: 10px;
+}
+table td:last-child{
+   padding-right: 10px ;
+}
+
+table td .edit-btn, .delete-btn{
+   height: 40px;
+   width: 70px;
+   margin: 0 4px;
+   border-radius: 5px;
+   border: none;
+   cursor: pointer;
+   transition: all ease-in-out 0.5s;
+}
+table td .edit-btn{
+  background-color: rgb(232, 232, 145);
+}
+table td .edit-btn:hover{
+  background-color: rgb(188, 188, 121);
+  color: white;
+}
+table td .delete-btn{
+  background-color: rgb(230, 136, 136);
+}
+table td .delete-btn:hover{
+  background-color: rgb(204, 122, 122);
+  color: white;
+}
+.loader-container-admintable{
+  position: absolute;
+  left: 50vw;
+  right: 50vw;
+  margin-top: 150px;
+}

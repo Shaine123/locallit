@@ -1,0 +1,45 @@
+.cart-container{
+   margin-top: 100px;
+   min-height: calc(100vh - 280px);
+}
+.cart-title{
+  text-align: center;
+  font-weight: 500;
+  font-size: 40px;
+  color: var(--SECONDARY);
+}
+.total-title{
+  text-align: center;
+  font-weight: 500;
+  color: white;
+}
+.total{
+  background-color: var(--PRIMARY);
+  max-width: 390px;
+  padding: 20px;
+  height: 170px;
+  border-radius: 10px;
+  margin: auto;
+  margin-top: 20px;
+}
+.total-btns{
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin-top: 20px;
+  gap: 15px;
+}
+.total-btns button{
+  background-color: var(--SECONDARY);
+  border: none;
+  color: white;
+  border-radius: 5px;
+  min-height: 40px;
+  cursor: pointer;
+  padding: 5px 10px  ;
+}
+
+.total-btns p{
+padding-top: 10px;
+}

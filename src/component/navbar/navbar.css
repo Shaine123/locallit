@@ -1,0 +1,168 @@
+.navbar-container{
+   position: fixed;
+   top: 0;
+   width: 100vw;
+   padding: 0 10rem;
+   height: 60px;
+   z-index: 5;
+   background-color: white;
+}
+
+.navbar-container .nav-link{
+   text-decoration: none;
+   color: var(--SECONDARY);
+}
+.navbar-container ul {
+   display: flex;
+   list-style-type: none;
+   gap: 2rem;
+   align-items: center;
+   height: 100%;
+}
+.navbar-container ul li {
+   cursor: pointer;
+   color: var(--SECONDARY);
+}
+.navbar-container ul li:nth-child(1){
+   color: black;
+   font-weight: bold;
+   font-size: 25px;
+}
+.navbar-container ul li:nth-child(3){
+   position: absolute;
+   right: 10rem;
+}
+
+/* @desc style for the profile button*/
+.nav-logoutbtn{
+   border: 1px solid var(--SECONDARY);
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   gap: 5px;
+   padding: 0.2rem;
+   cursor: pointer;
+   border-radius: 20px;
+   position: absolute;
+   right: 10rem;
+}
+.nav-logoutbtn:hover{
+   border: 3px solid var(--SECONDARY);
+}
+.nav-logoutbtn p{
+   color: var(--SECONDARY);
+   font-size: 13px;
+}
+.nav-logoutbtn img{
+   width: 15px;
+   height: auto;
+}
+
+.navprofile-controls{
+  width: 300px;
+  height: 500px;
+  border-radius: 15px;
+  position: absolute;
+  right: 10rem;
+  top: 50px;
+  overflow: hidden;
+  background-color: #3d4f58;
+}
+.navprofile-controls .navprofile-controlUsername{
+    background-color: #1c2d38;
+    /* background-color: red; */
+    width: 100%;
+    height: 150px;
+    padding-top: 30px;
+}
+.navprofile-controls .navprofile-controlUsername .logo{
+   background-color: white;
+   border-radius: 50px;
+   width: 70px;
+   height: 40px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   margin: auto;
+   margin-bottom: 10px;
+}
+.navprofile-controls .navprofile-controlUsername .logo .logo-img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.navprofile-controls .navprofile-controlUsername h1{
+   color: var(--TERTIARY);
+   font-size: 15px;
+}
+.navprofile-controls .navprofile-controlUsername h3, .logo-info{
+   color: white;
+   text-align: center;
+}
+.navprofile-controls .navprofile-controlUsername h3{
+   font-size: 15px;
+}
+.navprofile-controls .navprofile-controlUsername p{
+   font-size: 10px;
+}
+.navprofile-controls .logout-btn{
+   position: absolute;
+   bottom: 0;
+   height: 50px;
+   border-top: 1px solid lightgray;
+   width: 100%;
+   display: flex;
+   align-items: center;
+   padding-left: 10px;
+   cursor: pointer;
+}
+.navprofile-controls .logout-btn:hover{
+   background-color: rgba(128, 128, 128, 0.244);
+}
+.navprofile-controls .logout-btn p{
+   text-align: left;
+}
+.navprofile-links .navprofile-linkcontainer{
+   display: flex;
+   align-items: center;
+   gap: 15px;
+   padding: 10px;
+   padding-left: 20px;
+   transition: all 0.5s ease-in;
+   cursor: pointer;
+}
+.navprofile-links .navprofile-linkcontainer:hover{
+   background-color: rgba(128, 128, 128, 0.244);
+}
+.navprofile-links .navprofile-linkcontainer .navprofile-img{
+   width: 25px;
+   height: auto;
+}
+.navprofile-links .navprofile-linkcontainer .navprofile-link{
+   color: white;
+   text-decoration: none;
+
+}
+.cart-btn{
+    position: relative;
+    right: -790px;
+    top: 7px;
+}
+
+.cart-img{
+   width: 25px;
+   height: auto;
+}
+
+.cart-count{
+   background-color: red;
+   text-align: center;
+   height: 20px;
+   width: 25px;
+   min-width: 20px;
+   border-radius: 55px;
+   position: absolute;
+   top: -15px;
+   right: -10px;
+   font-size: 12px;
+}

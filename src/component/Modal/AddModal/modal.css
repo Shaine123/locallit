@@ -1,0 +1,311 @@
+.modal-bg{
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.326);
+  padding-top: 100px;
+  padding-left: 35vw;
+  z-index: 5;
+  left: 0;
+  top: 0;
+}
+.modal-bg .modal-container,.modal-container-sm, .modal-container-summary{
+   width: 500px;
+   height: auto;
+   min-height: 470px;
+   background-color: white;
+   border-radius: 10px;
+   overflow: hidden;
+   position: relative;
+}
+
+.modal-bg .modal-container .modal-title,.modal-title-summary{
+   padding: 20px 0;
+   padding-left: 20px;
+   background-color: var(--PRIMARY);
+   color: white;
+   font-weight: 500;
+   font-size: 20px;
+}
+.modal-bg .modal-container .close-btn{
+   position: absolute;
+   top: 10px;
+   right: 10px;
+   background-color: transparent;
+   border: none;
+   cursor: pointer;
+}
+.modal-bg .modal-container .close-btn img{
+   width: 35px;
+   height: auto;
+}
+
+form{
+   display: flex;
+   flex-wrap: wrap;
+   gap: 10px;
+   margin-top: 15px;
+   padding: 0 20px;
+}
+form .input-container{
+   display: flex;
+   flex-direction: column;
+}
+form .input-container .error-container2{
+  width: 220px;
+  height: 20px;
+  margin-bottom: -10px;
+}
+form .input-container .error-container2 .form-error{
+  color: red;
+  font-size: 10px;
+}
+form .submit-btn{
+   border: none;
+   padding: 0.7rem 1.8rem;
+   border-radius: 5px;
+   background-color: var(--PRIMARY);
+   color: white;
+   cursor: pointer;
+   margin-top: 10px;
+   margin-left: 180px;
+   transition: all ease-in 0.5s;
+}
+form .submit-btn:hover{
+  background-color: #a6ad75;;
+}
+form .input-container input{
+  height: 40px;
+  width: 220px;
+  border: 1px solid var(--SECONDARY);
+  border-radius: 5px;
+  padding-left: 10px;
+}
+form .input-container select{
+  height: 40px;
+  width: 220px;
+  border: 1px solid var(--SECONDARY);
+  border-radius: 5px;
+  padding-left: 10px;
+}
+form .input-container:nth-child(2){
+   position: relative;
+}
+form .input-container:nth-child(2) input{
+  padding-left: 30px;
+}
+form .input-container:nth-child(2) .peso-icon{
+  position: absolute;
+  width: 12px;
+  height: auto;
+  top: 37px;
+  left: 14px;
+}
+
+form .input-container:nth-child(4) input{
+  height: 40px;
+  width: 220px;
+  border: 1px solid var(--SECONDARY);
+  border-radius: 5px;
+  padding-left: 10px;
+  padding-top: 10px;
+}
+form .input-container:nth-child(4) {
+  position: relative;
+}
+
+form .input-container:nth-child(4) .file-name{
+  position: absolute;
+  top: 25px;
+  background-color: white;
+  overflow: hidden;
+  padding-top: 10px;
+  height: 35px;
+  width: 115px;
+  font-size: 12px;
+  color: black;
+  right: 5px;
+}
+
+form .input-container textarea{
+  padding-left: 10px;
+}
+
+/*Modal Delete Item Style  starts here*/
+
+.modal-container-sm{
+  min-height: 200px;
+  width: 300px;
+  padding: 35px;
+}
+.modal-container-sm .modal-delete-title{
+  font-weight: 500;
+  font-size: 20px;
+  text-align: center;
+}
+.modal-container-sm .cancel-btn,.proceed-btn{
+   background-color: rgb(141, 52, 52);
+   border: none;
+   color: white;
+   border-radius: 5px;
+   margin: 0 3px;
+   margin-top: 25px;
+   cursor: pointer;
+   padding-top: 0.4rem;
+   padding-bottom: 0.4rem;
+   padding-left: 1rem;
+   padding-right: 1rem;
+}
+.modal-container-sm .cancel-btn{
+  margin-left: 25px;
+}
+.modal-container-sm .proceed-btn{
+  background-color: green;
+}
+
+
+/* Summary Modal Style Starts Here */
+.modal-container-summary{
+  min-width: 800px;
+}
+
+.modal-bg .modal-container-summary .close-btn{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.modal-bg .modal-container-summary .close-btn img{
+  width: 35px;
+  height: auto;
+}
+
+.modal-bg .modal-container-summary .modal-summary-subcontainer{
+   display: flex;
+   justify-content: center;
+   padding: 0 20px;
+}
+
+.modal-bg .modal-container-summary .modal-summary-subcontainer .summary-box{
+   flex: 1;
+   height: auto;
+   padding: 10px;
+}
+
+.modal-bg .modal-container-summary .modal-summary-subcontainer .summary-box .summary-subtitle{
+   font-weight: 500;
+   text-align: center;
+}
+.modal-bg .modal-container-summary 
+.modal-summary-subcontainer .summary-box .summary-desc  {
+   display: flex;
+   flex-direction: column;
+   padding: 15px;
+   gap: 10px;
+}
+
+.modal-bg .modal-container-summary 
+.modal-summary-subcontainer .summary-box .summary-desc p {
+   color: black;
+   border-bottom: 1px solid lightgray;
+   border-radius: 30px;
+   padding-left: 20px;
+}
+.modal-bg .modal-container-summary 
+.modal-summary-subcontainer .summary-box .summary-desc .summary-image {
+   width: 80px;
+   height: 80px;
+   object-fit: cover;
+   border-radius: 5px;
+   margin-left: 20px;
+}
+
+.modal-bg .modal-container-summary 
+.modal-summary-subcontainer .summary-box .summary-desc .orderbox {
+  display: flex;
+}
+
+
+/* Summary Modal Style Ends Here*/
+
+
+/*Modal Edit Orders Style start here */
+ .orders-form{
+   display: flex;
+   flex-wrap: wrap;
+ }
+ .orders-form .ordersbox-form{
+  display: flex;
+  flex-direction: column;
+  min-width: 70%;
+  margin: auto;
+ }
+ .orders-form .ordersbox-form .orders-label{
+    color: var(--PRIMARY);
+    font-size: 15px;
+    margin-bottom: 7px;
+ }
+ .orders-form .ordersbox-form .orders-input{
+   min-width: 30px;
+   height: 35px;
+   border: 1px solid var(--PRIMARY);
+   border-radius: 5px;
+   padding-left: 10px;
+   cursor: pointer;
+}
+.orders-form .orders-btn{
+  height: 40px;
+  padding: 0 4rem;
+  border: none;
+  cursor: pointer;
+  color: white;
+  background-color: var(--PRIMARY);
+  border-radius: 5px;
+  transition: 0.5s all ease-in-out;
+  margin: auto;
+  margin-top: 20px;
+}
+.orders-form .orders-btn:hover{
+  background-color: #aeb291 ;
+}
+/*Modal Edit Orders Style ends here  */
+
+/* Modal Product Comment Styles Start Here*/
+.modalcomment-title{
+   font-weight: 500;
+   font-size: 20px;
+   text-align: center;
+   margin: 20px 0;
+   color: var(--SECONDARY);
+}
+.modalcomment-subtitle{
+  color: var(--SECONDARY);
+  font-size: 12px;
+  margin: 5px 0;
+  margin-left: 20%;
+}
+.modalcomment-ratings{
+   margin-left: 20%;
+}
+.modalcomment-textarea{
+  border: 1px solid var(--SECONDARY);
+  border-radius: 5px;
+  margin-left: 20%;
+  margin-top: 10px;
+  padding-left: 10px;
+}
+
+.modalcomment-btn{
+  display: block;
+  padding: 0.8rem 2.4rem;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--PRIMARY);
+  color: white;
+  margin: auto;
+  cursor: pointer;
+  margin-top: 10px;
+}
+/* Modal Product Comment Styles Ends Here*/

@@ -1,0 +1,55 @@
+.hero-container{
+  width: 100%;
+  height: 700px;
+  margin-top: 70px;
+  position: relative;
+}
+.hero-container img{
+   width: 100%;
+   height: 100%;
+   object-fit: fill;
+}
+.hero-container .hero-text{
+   position: absolute;
+   top: 80px;
+   left: 36vw;
+}
+
+.hero-container .hero-text h1{
+   font-size: 60px;
+   text-align: center;
+}
+.hero-container .hero-text p{
+  text-align: center;
+}
+
+.hero-container form .search-bar{
+   position: absolute;
+   top: 250px;
+   left: 36vw;
+   background-color: white;
+   border: none;
+   height: 55px;
+   padding-left: 10px;
+   border: 1px solid lightgray;
+   width: 400px;
+   border-radius: 15px;
+   z-index: 1;
+}
+.hero-container form .btn-submit{
+   position: absolute;
+   top: 257px;
+   left: 59.6vw;
+   height: 40px;
+   width: 40px;
+   z-index: 2;
+   background-color: var(--PRIMARY);
+   border: none;
+   border-radius: 10px;
+   cursor: pointer;
+}
+.hero-container form .btn-submit img{
+   height: 25px;
+   width: auto;
+   margin-top: 5px;
+}

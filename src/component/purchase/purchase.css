@@ -1,0 +1,57 @@
+.purchase-container{
+   padding-bottom: 50px;
+   padding-top: 150px;
+}
+.purchase-container .purchase-title,.purchase-subtitle{
+   text-align: center;
+   color: var(--SECONDARY);
+}
+.purchase-container .purchase-title{
+   font-weight: 500;
+   font-size: 50px;
+}
+
+.purchase-container .process-container{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   gap: 15px;
+   margin-top: 55px;
+}
+
+.purchase-container .process-container .process-card{
+   background-color: white;
+   height: 210px;
+   width: 350px;
+   border-radius: 15px;
+   padding: 30px
+}
+
+.purchase-container .process-container .process-card .process-icon{
+  background-color: var(--PRIMARY);
+  width: 55px;
+  height: 50px;
+  border-radius: 10px;
+}
+.purchase-container .process-container .process-card:nth-child(2) .process-icon{
+   background-color: var(--SECONDARY);
+}
+.purchase-container .process-container .process-card:nth-child(3) .process-icon{
+  background-color: #d3bd9d;
+}
+
+.purchase-container .process-container .process-card .process-icon img{
+  width: 35px;
+  height: 35px;
+  margin-top: 8px;
+  margin-left: 9px;
+}
+.purchase-container .process-container .process-card h2{
+   margin-top: 20px;
+   font-weight: 500;
+   color: black;
+}
+.purchase-container .process-container .process-card p{
+   color: var(--SECONDARY);
+   font-size: 15px;
+}

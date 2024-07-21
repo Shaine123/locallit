@@ -1,0 +1,35 @@
+.shop-container{
+  padding: 0 11rem;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+.shop-container h1{
+   font-weight: 500;
+   font-size: 35px;
+   margin-bottom: 20px;
+}
+
+.shop-container .filter-btns ul{
+   display: flex;
+   list-style-type: none;
+   gap: 1.5rem;
+}
+.shop-container .filter-btns ul li{
+  border: 1px solid lightgray;
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  transition: all ease-in-out 0.7s;
+  cursor: pointer;
+}
+.shop-container .filter-btns ul li:hover{
+   color: white;
+   background-color: var(--PRIMARY);
+}
+.shop-container .items-container{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   gap: 20px;
+   flex-wrap: wrap;
+   margin-top: 30px;
+}

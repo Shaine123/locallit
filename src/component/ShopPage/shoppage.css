@@ -1,0 +1,109 @@
+.shoppage-container{
+   min-height: calc(100vh - 270px);
+   padding: 0 11rem;
+   padding-top: 50px;
+   padding-bottom: 50px;
+   margin-top: 90px;
+ }
+.shoppage-container h1{
+    font-weight: 500;
+    font-size: 35px;
+    margin-bottom: 20px;
+ }
+ 
+.shoppage-container .filter-btns ul{
+    display: flex;
+    list-style-type: none;
+    gap: 1.5rem;
+ }
+.shoppage-container .filter-btns ul li{
+   border: 1px solid lightgray;
+   padding: 0.6rem 1rem;
+   border-radius: 10px;
+   transition: all ease-in-out 0.7s;
+   cursor: pointer;
+ }
+.shoppage-container .filter-btns ul li:hover{
+    color: white;
+    background-color: var(--PRIMARY);
+ }
+.shoppage-container .items-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+ }
+ .active-shop{
+   color: white;
+   background-color: var(--PRIMARY);
+ }
+
+ .shoppage-container  form .search-bar{
+   position: absolute;
+   top: 138px;
+   left: 63vw;
+   background-color: white;
+   border: none;
+   height: 45px;
+   padding-left: 10px;
+   border: 1px solid lightgray;
+   width: 300px;
+   border-radius: 15px;
+   z-index: 1;
+}
+.shoppage-container form .btn-submit{
+   position: absolute;
+   top: 143px;
+   left: 80vw;
+   height: 35px;
+   width: 35px;
+   z-index: 2;
+   background-color: var(--PRIMARY);
+   border: none;
+   border-radius: 10px;
+   cursor: pointer;
+}
+.shoppage-container  form .btn-submit img{
+   height: 20px;
+   width: auto;
+   margin-top: 5px;
+}
+
+/* Loader styles start here*/
+/* HTML: <div class="loader"></div> */
+.loader-container{
+   margin-top: 20vh;
+}
+.loader {
+   width: 50px;
+   aspect-ratio: 1;
+   display: grid;
+ }
+ .loader::before,
+ .loader::after {    
+   content:"";
+   grid-area: 1/1;
+   --c:no-repeat radial-gradient(farthest-side,#878d5d 92%,#0000);
+   background: 
+     var(--c) 50%  0, 
+     var(--c) 50%  100%, 
+     var(--c) 100% 50%, 
+     var(--c) 0    50%;
+   background-size: 12px 12px;
+   animation: l12 1s infinite;
+ }
+ .loader::before {
+   margin: 4px;
+   filter: hue-rotate(45deg);
+   background-size: 8px 8px;
+   animation-timing-function: linear
+ }
+ 
+ @keyframes l12 { 
+   100%{transform: rotate(.5turn)}
+ }
+/* Loader styles ends here*/
+
+

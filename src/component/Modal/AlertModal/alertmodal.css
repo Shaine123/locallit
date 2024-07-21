@@ -1,0 +1,26 @@
+.alertmodal-container{
+   background-color: #e4f7ed;
+   height: 50px;
+   width: 340px;
+   border-radius: 5px;
+   position: fixed;
+   top: 40px;
+   left: 38vw;
+   display: flex;
+   align-items: center;
+   gap: 10px;
+   padding-left: 10px;
+   /* color: #fce7e7; */
+   z-index: 5;
+}
+.alertmodal-container  .alert-icon{
+  width: 25px;
+  height: 25px;
+}
+.alertmodal-container .alert-text .alert-p{
+  color: #00BA00;
+}
+.alertmodal-container .alert-text .alert-span{
+  color: #00BA00;
+  font-weight: bold;
+}
