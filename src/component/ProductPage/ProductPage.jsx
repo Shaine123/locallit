@@ -143,6 +143,8 @@ const ProductPage = () => {
         }
      }
   }
+
+
   return (
      <>
         <div className="productpage-maincontainer">
@@ -246,7 +248,7 @@ const ProductPage = () => {
                                                 onClick={() => {handleComment(currentRating)}}
                                                 />
                                                 {
-                                                  currentRating <= (rating || hover) ?
+                                                  currentRating <= (val.rating || hover) ?
                                                   <img src={RatingStarIconColor} alt="star" style={{width:'15px',height: 'auto', cursor: 'pointer'}}/> 
                                                     :
                                                     <img src={RatingStarIconFill} alt="star" style={{width:'15px',height: 'auto', cursor: 'pointer'}}/>

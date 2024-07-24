@@ -221,11 +221,11 @@ const submitOrder = () => {
   if(quickBuy.length > 0){
     quickBuy.forEach((item) => {
       tempData.push({
-         productid: item.id,
+         productid: item._id,
          productimage: item.image,
          productname: item.itemname,
          productprice: item.price,
-         productquantit: oneProduct.quantity,
+         productquantity: oneProduct.quantity,
          dateadded:  `${month}/${day}/${year}`,
       })
    })
@@ -254,7 +254,7 @@ const submitOrder = () => {
       deliverypackage: shippingFee.package,
       deliverystatus: 'pending',
       timeinterval: (hour * 60) + minutes,
-      ordertotal: total + shippingFee.fee,
+      ordertotal: quickBuy.length > 0 ? quickBuy[0].price + shippingFee.fee  : total + shippingFee.fee,
       userinfo:{
          firstname: session.firstname ,
          lastname: session.lastname ,
@@ -304,7 +304,7 @@ const submitOrder = () => {
 
 }
 
- 
+  
   return (
     <div className='checkout-container'>
         <div className="checkout-text">
