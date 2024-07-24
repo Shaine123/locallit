@@ -16,10 +16,10 @@ import OrderPage from './component/orders/OrderPage'
 import OrderPageAdmin from './pages/orderpage-admin/OrderPageAdmin'
 import DashboardPage from './pages/dashpage/DashboardPage'
 
-// console.log = function() {};
-// console.error = function() {};
-// console.warn = function() {};
-// console.info = function() {};
+console.log = function() {};
+console.error = function() {};
+console.warn = function() {};
+console.info = function() {};
 
 const Pages = () => {
   return (
