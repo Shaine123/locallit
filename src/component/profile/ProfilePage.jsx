@@ -228,7 +228,7 @@ const ProfilePage = () => {
                   onBlur={handleBlur}
                />
            </div>
-           <div className="profform-container">
+           {/* <div className="profform-container">
                <label htmlFor="password">Password</label>
                <input 
                   type="text" 
@@ -238,7 +238,7 @@ const ProfilePage = () => {
                   placeholder={values.password === '' ? data.password : 'Enter Password'}
                   onBlur={handleBlur}
                />
-           </div>
+           </div> */}
           <button type="submit" className='profsubmit-btn'>Submit</button>
         </form>
         {successModal && <AlertModal message={alertMessage}/>}
