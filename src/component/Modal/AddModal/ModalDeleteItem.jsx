@@ -9,9 +9,9 @@ const ModalDeleteItem = ({deleteItem}) => {
   const dispatch = useDispatch()
   const {successModal} = useSelector(state => state.universal)
   const [alertMessage,setAlertMessage] = useState('')
-
+  const session = JSON.parse(sessionStorage.getItem('user'))
   const handleProceed = () => {
-     axios.delete(`${import.meta.env.VITE_URL}/deleteItem/${deleteItem[0]._id}/${deleteItem[0].image}`)
+     axios.delete(`${import.meta.env.VITE_URL}/deleteItem/${deleteItem[0]._id}/${deleteItem[0].image}`,{headers: { 'authorization': `${session.token}`}})
      .then((res) => {
          setAlertMessage(res.data.message)
           if(res.status === 200) {

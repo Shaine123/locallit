@@ -8,7 +8,7 @@ import { checkoutFormSchema } from '../../schemas'
 import { useDispatch, useSelector } from 'react-redux'
 import { openSuccessModal } from '../../state/universalSlice'
 import AlertModal from '../Modal/AlertModal/AlertModal'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 const addAmount = (items) => {
   let amounts = 0
@@ -44,17 +44,40 @@ const CheckOutPage = () => {
   const dispatch = useDispatch()
   const {successModal} = useSelector(state => state.universal)
 
+  const {oneItem} = useParams()
+  const oneProduct = oneItem !== undefined ? JSON.parse(oneItem) : {id: '',quantity: ''}
 
+  const [quickBuy,setQuickBuy] = useState([])
+  
   const [data,setData] = useState([])
+  const [dashData,setDashData] = useState([])
   const [total,setTotal] = useState(0)
 
   useEffect(() => {
-    axios.get(`${import.meta.env.VITE_URL}/getCarts/${session._id}`)
-     .then((res) => {
+
+     if(oneItem !== undefined){   
+      axios.get(`${import.meta.env.VITE_URL}/getOneItem/${oneProduct.id}`,{headers: { 'authorization': `${session.token}`}})
+      .then(res => {
+        setQuickBuy(res.data)
         setData(res.data)
-        setTotal(addAmount(res.data))
+        setTotal(res.data[0].price)
+      })
+      .catch(err => console.log(err))
+     }else{
+      axios.get(`${import.meta.env.VITE_URL}/getCarts/${session._id}`,{headers: { 'authorization': `${session.token}`}})
+      .then((res) => {
+         setData(res.data)
+         setTotal(addAmount(res.data))
+      })
+      .catch((err) => console.log(err))
+     }
+    
+
+     axios.get(`${import.meta.env.VITE_URL}/getDashboard`,{headers: { 'authorization': `${session.token}`}})
+     .then((res) => {
+       setDashData(res.data)
      })
-     .catch((err) => console.log(err))
+     .catch(err => console.log(err))
   }, [])
 
   const [quantity,setQuantity] = useState(1)
@@ -117,6 +140,73 @@ const CheckOutPage = () => {
 
 const [alertMessage,setAlertMessage] = useState('')
 
+const yearlyStats = [
+   {
+     name: 'January',
+     index: 0 ,
+     amount: 0
+   },
+   {
+    name: 'Febuary',
+    index: 1 ,
+    amount: 0
+  },
+  {
+    name: 'March',
+    index: 2 ,
+    amount: 0
+  },
+  {
+    name: 'April',
+    index: 3 ,
+    amount: 0
+  },
+  {
+    name: 'May',
+    index: 4 ,
+    amount: 0
+  },
+  {
+    name: 'June',
+    index: 5 ,
+    amount: 0
+  },
+  {
+    name: 'July',
+    index: 6 ,
+    amount: 0
+  },
+  {
+    name: 'August',
+    index: 7 ,
+    amount: 0
+  },
+  {
+    name: 'September',
+    index: 8 ,
+    amount: 0
+  },
+  {
+    name: 'October',
+    index: 9 ,
+    amount: 0
+  },
+  {
+    name: 'November',
+    index: 10 ,
+    amount: 0
+  },
+  {
+    name: 'December',
+    index: 11 ,
+    amount: 0
+  },
+]
+
+// let obj = new Date(); 
+// let day = obj.getUTCDate(); 
+// let month = obj.getUTCMonth() + 1; 
+// let year = obj.getUTCFullYear(); 
 
 const submitOrder = () => {
   let tempData = []
@@ -127,8 +217,20 @@ const submitOrder = () => {
   let year  = obj.getFullYear()
   let hour = obj.getHours() > 12 ? obj.getHours() - 12 : obj.getHours()
   let minutes = obj.getMinutes()
-
-   data.forEach((item) => {
+  
+  if(quickBuy.length > 0){
+    quickBuy.forEach((item) => {
+      tempData.push({
+         productid: item.id,
+         productimage: item.image,
+         productname: item.itemname,
+         productprice: item.price,
+         productquantit: oneProduct.quantity,
+         dateadded:  `${month}/${day}/${year}`,
+      })
+   })
+  }else{
+    data.forEach((item) => {
       tempData.push({
          productid: item.itemid,
          productimage: item.itemimage,
@@ -138,6 +240,8 @@ const submitOrder = () => {
          dateadded: item.dateadded
       })
    })
+  }
+ 
 
 
    const deliveryDate = shippingFee.package === 'Standard' ? `${month}/${day + 2}/${year}` : `${month}/${day+ 1}/${year}`
@@ -159,7 +263,7 @@ const submitOrder = () => {
          postalcode: values.postalcode,
          city: values.city
       }
-   })
+   },{headers: { 'authorization': `${session.token}`}})
    .then((res) => {
       setAlertMessage(res.data.message)
       if (res.status === 200) {
@@ -173,9 +277,34 @@ const submitOrder = () => {
       }
    })
    .catch(err => console.log(err))
+
+
+
+   const sales = dashData[0].sales.map((obj) => {
+     if(obj.index === month - 1){
+         return {...obj,amount: obj.amount + (total + shippingFee.fee)}
+     }
+    return obj
+   })
+
+   const orders = dashData[0].orders.map((obj) => {
+    if(obj.index === month - 1){
+        return {...obj,amount: obj.amount + 1}
+    }
+   return obj
+  })
+   
+   axios.put(`${import.meta.env.VITE_URL}/editDashboard`,{
+      sales: sales,
+      orders: orders,
+      id: dashData[0]._id
+   },{headers: { 'authorization': `${session.token}`}})
+   .then(res => console.log(res.data))
+   .catch(err => console.log(err))
+
 }
 
-
+ 
   return (
     <div className='checkout-container'>
         <div className="checkout-text">
@@ -298,29 +427,51 @@ const submitOrder = () => {
               <h2 className='checkoutcard-title'>Order summary</h2>
              <div className="checkoutcardbox-container">
               {
-                 data.length > 0 ? data.map((product) => {
-                   return (
-                    <div className="checkoutcard-box" key={product._id}>
-                        <img src={`${import.meta.env.VITE_URL}/images/${product.itemimage}`} alt="" className="checkoutimg" />
-                        <div className="checkoutinfo">
-                            <p className='checkoutinfo-p'>{product.itemname}</p>
-                            <p className='checkoutinfo-p2'>quantity: <span style={{color: 'black'}}>{product.itemquantity}</span></p>
-                            <p className='checkoutinfo-p'>₱ {product.itemprice}</p>
-                        </div>
-                        <div className="checkoutcard-controls">
-                          <button className="checkoutbtn" onClick={() => {handleQuantity({operation:'minus',price:product.itemprice, name: product.itemname })}}>-</button>
-                            <p>{product.itemquantity}</p>
-                          <button className="checkoutbtn" onClick={() => {handleQuantity({operation:'add',price:product.itemprice, name: product.itemname })}}>+</button>
-                        </div>
-                    </div>
-                   )
-                 })
+                 data.length > 0 ? 
+                 quickBuy.length > 0 ?
+                 quickBuy.map((product) => {
+                  return (
+                   <div className="checkoutcard-box" key={product._id}>
+                       <img src={`${import.meta.env.VITE_URL}/images/${product.image}`} alt="" className="checkoutimg" />
+                       <div className="checkoutinfo">
+                           <p className='checkoutinfo-p'>{product.itemname}</p>
+                           <p className='checkoutinfo-p2'>quantity: <span style={{color: 'black'}}>{oneProduct.quantity}</span></p>
+                           <p className='checkoutinfo-p'>₱ {product.price}</p>
+                       </div>
+                       <div className="checkoutcard-controls">
+                         <button className="checkoutbtn" onClick={() => {handleQuantity({operation:'minus',price:product.itemprice, name: product.itemname })}}>-</button>
+                           <p>{oneProduct.quantity}</p>
+                         <button className="checkoutbtn" onClick={() => {handleQuantity({operation:'add',price:product.itemprice, name: product.itemname })}}>+</button>
+                       </div>
+                   </div>
+                  )
+                })
                   : 
-                  ''
+                  data.map((product) => {
+                    return (
+                     <div className="checkoutcard-box" key={product._id}>
+                         <img src={`${import.meta.env.VITE_URL}/images/${product.itemimage}`} alt="" className="checkoutimg" />
+                         <div className="checkoutinfo">
+                             <p className='checkoutinfo-p'>{product.itemname}</p>
+                             <p className='checkoutinfo-p2'>quantity: <span style={{color: 'black'}}>{product.itemquantity}</span></p>
+                             <p className='checkoutinfo-p'>₱ {product.itemprice}</p>
+                         </div>
+                         <div className="checkoutcard-controls">
+                           <button className="checkoutbtn" onClick={() => {handleQuantity({operation:'minus',price:product.itemprice, name: product.itemname })}}>-</button>
+                             <p>{product.itemquantity}</p>
+                           <button className="checkoutbtn" onClick={() => {handleQuantity({operation:'add',price:product.itemprice, name: product.itemname })}}>+</button>
+                         </div>
+                     </div>
+                    )
+                  })
+                  :
+                  <div className="loader-container">
+                     <div className="loader"></div>
+                  </div>
               }
              </div>
               <div className="checkoutcard-sub">
-                 <p className="checkoutcard-subinfo">Subtotal  <span>₱ {total + shippingFee.fee}</span></p>
+                 <p className="checkoutcard-subinfo">Subtotal  <span>₱ {total}</span></p>
                  <p className="checkoutcard-subinfo">Shipping <span>₱ {shippingFee.fee}</span></p>
               </div>
               <h2 className="checkoutcard-total">Order total <span style={{color: 'black', marginLeft: '135px'}}>₱ {total + shippingFee.fee}</span></h2>

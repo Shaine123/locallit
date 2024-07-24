@@ -44,7 +44,7 @@ const Cart = () => {
 
    useEffect(() => {
       if(session !== null){
-         axios.get(`${import.meta.env.VITE_URL}/getCarts/${session._id}`)
+         axios.get(`${import.meta.env.VITE_URL}/getCarts/${session._id}`,{headers: { 'authorization': `${session.token}`}})
          .then((res) => {
             setData(res.data)
             if(res.data.length > 0){
@@ -81,7 +81,6 @@ const Cart = () => {
          setData(tempData)
       }
  }
-
 
   return (
      <>

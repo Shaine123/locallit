@@ -24,7 +24,9 @@ const Login = () => {
    // };
 
    // const MyFacebookLoginButton = createButton(config);
-   
+
+
+   const session = JSON.parse(sessionStorage.getItem('user'))
    const [openSignUp,setOpenSignUp] = useState(false)
    
    const navigate = useNavigate()
@@ -34,18 +36,24 @@ const Login = () => {
    const [thirdloader,setThirdLoader] = useState(false)
 
    const sendForm = () => {
+
+
+
+     axios.post(`${import.meta.env.VITE_URL}/login`,{
+         email: values.email,
+         password: values.password,
+     })
+     .then(res => {
+         const token = res.data.token
+        if(res.status == 200){
       setRegLoader(true)
-      axios.get(`${import.meta.env.VITE_URL}/findUser/${values.username}`)
+      axios.get(`${import.meta.env.VITE_URL}/findUser/${values.email}`,{
+        headers: {
+            'authorization': `${token}`
+          }
+      })
       .then((res) => {
           if(res.data[0].accesstype === 'admin'){
-            if(res.data[0].password !== values.password){
-                    setCustomError(
-                        {
-                            username: '',
-                            password: 'Password is Incorrect'
-                        }
-                    )
-            }else{
                 setCustomError('')
                 sessionStorage.setItem('user', JSON.stringify({
                     _id: res.data[0]._id,
@@ -57,20 +65,12 @@ const Login = () => {
                     email: res.data[0].email ,
                     address: res.data[0].address,
                     accesstype: res.data[0].accesstype,
-                    status: 'login'
+                    status: 'login',
+                    token: token
                 }))
                 setRegLoader(false)
                 navigate('/localit/adminpage/itempage')
-            }
           }else{
-             
-             if(res.data[0].password !== values.password){
-                    setCustomError({
-                        username: '',
-                        password: 'Password is Incorrect'
-                    })
-                }
-                else{
                     setCustomError('')
                     sessionStorage.setItem('user', JSON.stringify({
                         _id: res.data[0]._id,
@@ -82,26 +82,39 @@ const Login = () => {
                         email: res.data[0].email ,
                         address: res.data[0].address,
                         accesstype: res.data[0].accesstype,
-                        status: 'login'
+                        status: 'login',
+                        token: token
                     }))
                     setRegLoader(false)
                     navigate('/locallit/shoppage')
                 }
-          }
       })
       .catch((err) => {
         setCustomError({
-            username: 'Username does not exist',
+            email: 'Email does not exist',
             password: ''
         })
         setRegLoader(false)
         console.log(err)
       })
+        }
+    
+     })
+     .catch(err => {
+        setCustomError(
+            {
+                email: '',
+                password: 'Password is Incorrect'
+            }
+        )
+     })
+
+   
    }
 
  const googleLogin = (data) => {
   setThirdLoader(true)
-  axios.get(`${import.meta.env.VITE_URL}/findUser/${data.given_name}`)
+  axios.get(`${import.meta.env.VITE_URL}/findUser/${data.email}`,)
   .then((res) => {
       if (res.data.length === 0) {
         axios.post(`${import.meta.env.VITE_URL}/addUser`,{
@@ -117,7 +130,7 @@ const Login = () => {
            })
            .then((res) => {
                if (res.status === 200) {
-                  axios.get(`${import.meta.env.VITE_URL}/findUser/${data.given_name}`)
+                  axios.get(`${import.meta.env.VITE_URL}/findUser/${data.email}`)
                   .then((res) => {
                       if (res.data[0].accesstype === 'thirdparty') {
                             sessionStorage.setItem('user', JSON.stringify({
@@ -233,7 +246,7 @@ const Login = () => {
 
    const {values,handleBlur,handleChange,handleSubmit, errors, touched} = useFormik({
         initialValues: {
-          username: '',
+          email: '',
           password: ''
        },
        validationSchema: loginSchema,
@@ -267,7 +280,7 @@ const Login = () => {
                                console.log(error)
                            }}
                          />
-                         <LoginSocialFacebook 
+                         {/* <LoginSocialFacebook 
                            appId = {`${import.meta.env.VITE_APP_ID}`}
                            onResolve = {(response) => {facebookLogin(response.data)}}
                            onReject = {(error) => {
@@ -278,7 +291,7 @@ const Login = () => {
                             <img src={FacebookColoredIcon} alt="fbcolored" />
                                <h2>Login with Facebook</h2>
                             </button>
-                         </LoginSocialFacebook>
+                         </LoginSocialFacebook> */}
                       </div>
                    }
                  </div>
@@ -295,25 +308,25 @@ const Login = () => {
                      <>
                      <form action="" onSubmit={handleSubmit}>
                      <input 
-                        type="text" 
-                        name="username" 
-                        id="user" 
+                        type="email" 
+                        name="email" 
+                        id="email" 
                         className='input-box'
-                        placeholder='User Name'
-                        value={values.username}
+                        placeholder='Enter email'
+                        value={values.email}
                         onBlur={handleBlur}
                         onChange={handleChange}
                         />
                         <div className="error-container">
-                            {customError && <p className='form-error'>{customError.username}</p>}
-                            {errors.username && touched.username && <p className='form-error'>{errors.username}</p>}
+                            {customError && <p className='form-error'>{customError.email}</p>}
+                            {errors.email && touched.email && <p className='form-error'>{errors.email}</p>}
                         </div>
                       <input 
                         type="password" 
                         name="password" 
                         id="pass" 
                         className='input-box'
-                        placeholder='Password'
+                        placeholder='Enter password'
                         value={values.password}
                         onBlur={handleBlur}
                         onChange={handleChange}

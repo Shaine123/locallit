@@ -39,9 +39,12 @@ const ProductPage = () => {
   const {id} = useParams()
 
   const [productData,setProductData] = useState([])
-  const [reviewData,setReviewData] = useState([{reviewDescription:[]}])
+  const [cartData,setCartData] = useState([])
+  const [reviewData,setReviewData] = useState([{reviewDescription:[{comment:[]}]}])
+  const userData = JSON.parse(sessionStorage.getItem('user'))
+  
   useEffect(() => {
-     axios.get(`${import.meta.env.VITE_URL}/getOneItem/${id}`)
+     axios.get(`${import.meta.env.VITE_URL}/getOneItem/${id}`,{headers: { 'authorization': `${session.token}`}})
      .then(res => {
       setProductData(res.data)
       setReviewData(res.data)
@@ -53,11 +56,29 @@ const ProductPage = () => {
        }
      })
      .catch(err => console.log(err))
+    
+     if(userData !== null){
+      axios.get(`${import.meta.env.VITE_URL}/getCarts/${userData._id}`,{headers: { 'authorization': `${session.token}`}})
+      .then((res) => {
+         setCartData(res.data)
+      })
+      .catch((err) => console.log(err))
+   }
+
+  //  axios.get(`${import.meta.env.VITE_URL}/getItem`,{headers: { 'authorization': `${session.token}`}})
+  //  .then(res => {
+  //   setReviewData(res.data)
+   
+  //   console.log(res.data)
+  //  })
+  //  .catch(err => console.log(err))
+
+
   },[])
 
 
   const [alertMessage,setAlertMessage] = useState('')
-  const userData = JSON.parse(sessionStorage.getItem('user'))
+
 
     let obj = new Date(); 
     let day = obj.getUTCDate(); 
@@ -66,34 +87,62 @@ const ProductPage = () => {
    
   
   const handleAddCart = () => {
-
+    const productExist = cartData.filter((item) => {
+       return item.itemname === productData[0].itemname
+    })
+    console.log(productExist)
      if(userData == null){
        navigate('/locallit/login')
      }else {
-      axios.post(`${import.meta.env.VITE_URL}/addCart`,{
-          userid: userData._id,
-          username: userData.username,
-          itemid: id,
-          itemname: productData.itemname,
-          itemprice: productData.price,
-          itemquantity: quantity,
-          itemimage: productData.image,
-          dateadded: `${month}/${day}/${year}`
-      })
-      .then((res) => {
-        setAlertMessage(res.data.message)
-        if (res.status === 200) {
-          //openModal
-           dispatch(openSuccessModal())
-           setTimeout(() => {
-            //closeModal
-            dispatch(openSuccessModal())        
-           },2000)
+
+        if(productExist.length > 0) { 
+            axios.put(`${import.meta.env.VITE_URL}/editCart`,{
+              userid: userData._id,
+              username: userData.username,
+              itemid: id,
+              itemname: productData[0].itemname,
+              itemprice: productData[0].price,
+              itemquantity: productExist[0].itemquantity + quantity,
+              itemimage: productData[0].image,
+              dateadded: `${month}/${day}/${year}`,
+              id: productExist[0]._id
+            },{headers: { 'authorization': `${session.token}`}})
+            .then((res) => {
+              setAlertMessage(res.data.message)
+              if (res.status === 200) {
+                //openModal
+                 dispatch(openSuccessModal())
+                 setTimeout(() => {
+                  //closeModal
+                  dispatch(openSuccessModal())        
+                 },2000)
+              }
+            })
+        }else{
+          axios.post(`${import.meta.env.VITE_URL}/addCart`,{
+            userid: userData._id,
+            username: userData.username,
+            itemid: id,
+            itemname: productData[0].itemname,
+            itemprice: productData[0].price,
+            itemquantity: quantity,
+            itemimage: productData[0].image,
+            dateadded: `${month}/${day}/${year}`
+        },{headers: { 'authorization': `${session.token}`}})
+        .then((res) => {
+          setAlertMessage(res.data.message)
+          if (res.status === 200) {
+            //openModal
+             dispatch(openSuccessModal())
+             setTimeout(() => {
+              //closeModal
+              dispatch(openSuccessModal())        
+             },2000)
+          }
+        })
         }
-      })
      }
   }
-  console.log(productData.length)
   return (
      <>
         <div className="productpage-maincontainer">
@@ -125,7 +174,7 @@ const ProductPage = () => {
                             <img src={MinusIcon} alt="minus" />
                         </button>
                     </div>
-                    <button className="buyItem-btn">Buy Item</button>
+                    <button className="buyItem-btn" onClick={() => {navigate(`/locallit/checkoutpage/${JSON.stringify({id: id,quantity:quantity })}`)}}>Buy Item</button>
                     <button className="addCart-btn" onClick={() =>{handleAddCart()}}>Add To Cart</button>
 
                     <div className="rating-container">
@@ -170,9 +219,56 @@ const ProductPage = () => {
             <div className="reviewsec-subcontainer">
               { 
                 reviewData[0].reviewDescription.length > 0 ?
-                 reviewData[0].reviewDescription.map((val) => {
-                     return (
-                      <div className="reviewsec-box">
+               reviewData[0].reviewDescription.map((val) => {
+                return (
+                   <>
+                      {
+                          val.comment.length > 0 ? 
+                          val.comment.map((vals) => {
+                             return (
+                              <div className="reviewsec-box">
+                              <div className="reviewsec-subbox">
+                                  <img src={`${val.image}`} alt="img" className="reviewsec-image" />
+                              </div>
+                              <div className="reviewsec-subbox">
+                                <div className="reviewsec-userinfo">
+                                    <div className="reviewsec-ratings">
+                                    {
+                                      [...Array(5)].map((star,index) => {
+                                        const currentRating = index + 1
+                                          return (
+                                            <label >
+                                              <input 
+                                                type="radio" 
+                                                name="rating" 
+                                                value={val.rating}
+                                                style={{display:'none'}}
+                                                onClick={() => {handleComment(currentRating)}}
+                                                />
+                                                {
+                                                  currentRating <= (rating || hover) ?
+                                                  <img src={RatingStarIconColor} alt="star" style={{width:'15px',height: 'auto', cursor: 'pointer'}}/> 
+                                                    :
+                                                    <img src={RatingStarIconFill} alt="star" style={{width:'15px',height: 'auto', cursor: 'pointer'}}/>
+                                                }
+                                            </label>
+                                          )
+                                      })
+                                    }
+                                    </div>
+                                    <p>{val.name}</p>
+                                    <p>{val.date}</p>
+                                </div>
+                                <div className="reviewsec-comment">
+                                 <p>{vals}</p>
+                           
+                                </div>
+                              </div>
+                          </div>
+                             )
+                          })
+                          :
+                          <div className="reviewsec-box">
                           <div className="reviewsec-subbox">
                               <img src={`${val.image}`} alt="img" className="reviewsec-image" />
                           </div>
@@ -206,12 +302,25 @@ const ProductPage = () => {
                                 <p>{val.date}</p>
                             </div>
                             <div className="reviewsec-comment">
-                                <p>{val.comment}</p>
+                              {
+                                 val.comment.length >= 0 ?
+                                 val.comment.map((arr) => {
+                                    return (
+                                       <p>{arr}</p>
+                                    )
+                                 })
+                                 :
+                                 <p>{arr.comment[0]}</p>
+                              }
+                       
                             </div>
                           </div>
                       </div>
-                     )
-                 })
+                      }
+                  
+                   </>
+                )
+            })
                 :
                  ''
               }

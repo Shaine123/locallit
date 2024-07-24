@@ -10,9 +10,10 @@ const CartTable = ({data, quantityFunc}) => {
 const {successModal} = useSelector(state => state.universal)
 const dispatch = useDispatch()
 const [alertMessage,setAlertMessage] = useState('')
+const session = JSON.parse(sessionStorage.getItem('user'))
 
 const handleDelete = (id) => {
-     axios.delete(`${import.meta.env.VITE_URL}/deleteCart/${id}`)
+     axios.delete(`${import.meta.env.VITE_URL}/deleteCart/${id}`,{headers: { 'authorization': `${session.token}`}})
      .then((res) => {
         setAlertMessage(res.data.message)
         if (res.status === 200) {

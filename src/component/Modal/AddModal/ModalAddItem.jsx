@@ -14,7 +14,8 @@ const ModalAddItem = () => {
   const {successModal} = useSelector(state => state.universal)
   const [uploadImage,setUploadImage] = useState()
   const [alertMessage,setAlertMessage] = useState('')
-
+  const session = JSON.parse(sessionStorage.getItem('user'))
+  
   const submitForm = () => {
      const formData = new FormData()
      formData.append('file',uploadImage)
@@ -30,7 +31,7 @@ const ModalAddItem = () => {
                 reviewDescription: [],
                 ratings: 0,
                 numberOfReviews: 0
-             })
+             },{headers: { 'authorization': `${session.token}`}})
              .then((res) => {
               setAlertMessage(res.data.message)
                 if (res.status === 200) {

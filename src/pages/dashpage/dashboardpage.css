@@ -1,0 +1,92 @@
+/* .dashboardpage-container{
+ padding-top: 50px;
+} */
+.dashboardpage-container .dashstat-container{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center ;
+  gap: 20px;
+  width: calc(100vw - 220px);
+  height: auto;
+  background-color: white;
+  margin: auto;
+  border-radius: 5px;
+  padding: 20px;
+}
+.dashboardpage-container .dashstat-container 
+.dashstat-card{
+ padding: 25px;
+ min-width: 350px;
+ max-width: 380px;
+}
+.dashboardpage-container .dashstat-container 
+.dashstat-card{
+ flex: 1;
+ background-color: #dfeaea;
+ border-radius: 5px;
+}
+.dashboardpage-container .dashstat-container 
+.dashstat-card:nth-child(2){
+  flex: 1;
+ background-color: #d5e9ee;
+}
+.dashboardpage-container .dashstat-container 
+.dashstat-card:nth-child(3){
+  flex: 1;
+ background-color: #e1e9f0;
+}
+.dashboardpage-container .dashstat-container 
+.dashstat-card:nth-child(4){
+  flex: 1;
+ background-color: #e1e9f0;
+}
+
+.dashboardpage-container .dashstat-container 
+.dashstat-card .dash-title{
+  font-weight: 500;
+  font-size: 20px;
+  margin-bottom: 7px;
+}
+
+.dashboardpage-container .dashstat-container 
+.dashstat-card .dashdesc-container{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dashboardpage-container .dashstat-container 
+.dashstat-card .dashdesc-container
+.dashimage{
+  width: 45px;
+  height: auto;
+}
+
+
+.dashboardpage-container .dashstat-container 
+.dashstat-card .dashdesc-container .dash-data{
+  color: black;
+  font-size: 27px;
+}
+
+.dashboardpage-container .dashcharts-container{
+  width: calc(100vw - 220px);
+  height: auto;
+  background-color: white;
+  margin: auto;
+  border-radius: 5px;
+  padding: 20px;
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.dashboardpage-container .dashcharts-container
+.line-chart{
+  flex: 1;
+  min-width: 200px;
+  min-height: 300px;
+  background-color: whitesmoke;
+  padding-left: 10px;
+}

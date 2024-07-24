@@ -6,6 +6,7 @@ import axios from 'axios'
 import AlertModal from '../AlertModal/AlertModal'
 
 const ModalProductComments = ({ratings,data}) => {
+  
 
   const dispatch = useDispatch()
   const [rating ,setRating] = useState(ratings)
@@ -22,10 +23,10 @@ const ModalProductComments = ({ratings,data}) => {
   let year  = obj.getFullYear()
 
    const handleSubmit = () => {
-    let reviews = data.reviewDescription
+    let reviews = data[0].reviewDescription
 
     //This section is for when the item currently has no reviews or comments
-      if( data.reviewDescription.length <= 0) {
+      if( data[0].reviewDescription.length <= 0) {
            reviews.push({
               name: session.username,
               id: session._id,
@@ -36,17 +37,17 @@ const ModalProductComments = ({ratings,data}) => {
            })         
 
         axios.put(`${import.meta.env.VITE_URL}/editItem`,{
-          itemname: data.itemname,
-          price: data.price,
-          genre: data.genre,
-          image: data.image,
-          description: data.description,
+          itemname: data[0].itemname,
+          price: data[0].price,
+          genre: data[0].genre,
+          image: data[0].image,
+          description: data[0].description,
           reviewDescription: reviews,
-          ratings: data.ratings,
-          numberOfReviews: data.numberOfReviews,
-          oldImage: data.image,
-          id: data._id
-        })
+          ratings: data[0].ratings,
+          numberOfReviews: data[0].numberOfReviews,
+          oldImage: data[0].image,
+          id: data[0]._id
+        },{headers: { 'authorization': `${session.token}`}})
         .then((res) => {
           setAlertMessage(res.data.message2)
           if (res.status === 200) {
@@ -76,17 +77,17 @@ const ModalProductComments = ({ratings,data}) => {
               })
              
               axios.put(`${import.meta.env.VITE_URL}/editItem`,{
-                itemname: data.itemname,
-                price: data.price,
-                genre: data.genre,
-                image: data.image,
-                description: data.description,
+                itemname: data[0].itemname,
+                price: data[0].price,
+                genre: data[0].genre,
+                image: data[0].image,
+                description: data[0].description,
                 reviewDescription: comments,
-                ratings: data.ratings,
-                numberOfReviews: data.reviewDescription.length,
-                oldImage: data.image,
-                id: data._id
-              })
+                ratings: data[0].ratings,
+                numberOfReviews: data[0].reviewDescription.length,
+                oldImage: data[0].image,
+                id: data[0]._id
+              },{headers: { 'authorization': `${session.token}`}})
               .then((res) => {
                 setAlertMessage(res.data.message2)
                 if (res.status === 200) {
@@ -112,17 +113,17 @@ const ModalProductComments = ({ratings,data}) => {
            })    
 
             axios.put(`${import.meta.env.VITE_URL}/editItem`,{
-              itemname: data.itemname,
-              price: data.price,
-              genre: data.genre,
-              image: data.image,
-              description: data.description,
+              itemname: data[0].itemname,
+              price: data[0].price,
+              genre: data[0].genre,
+              image: data[0].image,
+              description: data[0].description,
               reviewDescription: reviews,
-              ratings: data.ratings,
-              numberOfReviews: data.reviewDescription.length,
-              oldImage: data.image,
-              id: data._id
-            })
+              ratings: data[0].ratings,
+              numberOfReviews: data[0].reviewDescription.length,
+              oldImage: data[0].image,
+              id: data[0]._id
+            },{headers: { 'authorization': `${session.token}`}})
             .then((res) => {
               setAlertMessage(res.data.message2)
               if (res.status === 200) {

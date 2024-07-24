@@ -19,7 +19,7 @@ const Navbar = () => {
 
   useEffect(() => {
     if(session !== null){
-       axios.get(`${import.meta.env.VITE_URL}/getCarts/${session._id}`)
+       axios.get(`${import.meta.env.VITE_URL}/getCarts/${session._id}`,{headers: { 'authorization': `${session.token}`}})
        .then((res) => {
           setData(res.data)
           // setTotal(addAmount(res.data))
@@ -50,12 +50,15 @@ const Navbar = () => {
    <>
       <nav className="navbar-container">
           <ul>
-            {
-               userData.accessType === 'admin' ?
-               ''
-               :
-             <li><Link to = '/' className='nav-link'>Local<span style={{color:'#878d5d'}}>Lit</span></Link></li>
-            }
+             <li>
+               {
+                 userData.accesstype == 'admin' ?
+                 <Link  className='nav-link'>Local<span style={{color:'#878d5d'}}>Lit</span></Link>
+                 :
+                 <Link to = '/' className='nav-link'>Local<span style={{color:'#878d5d'}}>Lit</span></Link>
+               }
+             </li>
+            
             <li><Link to = '/locallit/shoppage' className='nav-link'>Shop</Link></li>
               {
                  userData.status === 'login' ?

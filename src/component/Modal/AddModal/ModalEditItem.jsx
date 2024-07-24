@@ -14,6 +14,7 @@ const ModalEditItem = ({editData}) => {
   const {successModal} = useSelector(state => state.universal)
   const [uploadImage,setUploadImage] = useState('')
   const [alertMessage,setAlertMessage] = useState('')
+  const session = JSON.parse(sessionStorage.getItem('user'))
 
   const submitForm = () => {
 
@@ -26,7 +27,7 @@ const ModalEditItem = ({editData}) => {
         genre: values.genre,
         image: editData[0].image,
         description: values.description
-     })
+     },{headers: { 'authorization': `${session.token}`}})
      .then((res) => {
        setAlertMessage(res.data.message)
       if (res.status === 200) {

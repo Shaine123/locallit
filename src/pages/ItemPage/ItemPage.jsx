@@ -13,9 +13,11 @@ const ItemPage = () => {
    const {successModal} = useSelector(state => state.universal)
    const [data,setData] = useState([])
    const [hasProducts,setHasProducts] = useState(false)
+   const session = JSON.parse(sessionStorage.getItem('user'))
+
    localStorage.setItem('name','bob')
    useEffect(() => {
-       axios.get(`${import.meta.env.VITE_URL}/getItem`)
+       axios.get(`${import.meta.env.VITE_URL}/getItem`,{headers: { 'authorization': `${session.token}`}})
        .then(res => {
          setData(res.data)
          if(res.data.length > 0){
@@ -32,7 +34,7 @@ const ItemPage = () => {
    
    const [editData,setEditData] = useState('')
    const handleEdit = (item) => {
-      axios.get(`${import.meta.env.VITE_URL}/getOneItem/${item}`)
+      axios.get(`${import.meta.env.VITE_URL}/getOneItem/${item}`,{headers: { 'authorization': `${session.token}`}})
       .then((res) => {
          setEditData(res.data)
       })
@@ -43,7 +45,7 @@ const ItemPage = () => {
      },500)
    }
    const handleDelete = (item) => {
-      axios.get(`${import.meta.env.VITE_URL}/getOneItem/${item}`)
+      axios.get(`${import.meta.env.VITE_URL}/getOneItem/${item}`,{headers: { 'authorization': `${session.token}`}})
       .then((res) => {
          setEditData(res.data)
       })
@@ -52,6 +54,19 @@ const ItemPage = () => {
       dispatch(openModalDelete())
     },300)
    }
+
+   const [searched,setSearched] = useState([])
+   const handleSearch = (e) => {
+      const search = data.filter((item) => {
+          return item.itemname.toLowerCase().trim() == e.target.value.toLowerCase().trim()
+      })
+      if(search.length > 0){
+          setSearched(search)
+      }else{
+          setSearched([ ])
+      }
+   }
+
 
   return (
      <>
@@ -64,6 +79,7 @@ const ItemPage = () => {
                      id="sea"
                      className='search-input'
                      placeholder='Search by Item Name'
+                     onChange={handleSearch}
                      />
                    <img src={KeyIcon} alt="key" />
                  </div>
@@ -93,7 +109,8 @@ const ItemPage = () => {
                     {
                       hasProducts ? 
                        data.length > 0 ? 
-                         data.map((item) => {
+                       searched.length > 0 ?
+                         searched.map((item) => {
                              return (
                               <tr key={item._id}>
                                  <td>
@@ -110,6 +127,24 @@ const ItemPage = () => {
                               </tr>
                              )
                          })
+                         :
+                         data.map((item) => {
+                           return (
+                            <tr key={item._id}>
+                               <td>
+                                   <img className='itempage-image' src={`${import.meta.env.VITE_URL}/images/${item.image}`} alt="img"  />
+                               </td>
+                               <td>{item.itemname}</td>
+                               <td>{item.price}</td>
+                               <td>{item.genre}</td>
+                               <td>{item.description}</td>
+                               <td>
+                                   <button className='edit-btn' onClick={() => {handleEdit(item._id)}}>Edit</button>
+                                   <button className='delete-btn' onClick={() =>{handleDelete(item._id)}}>Delete</button>
+                               </td>
+                            </tr>
+                           )
+                       })
                        :
                         <h1 className='no-items-message'>No Items</h1>
                        :

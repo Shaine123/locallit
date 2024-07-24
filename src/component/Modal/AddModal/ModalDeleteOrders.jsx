@@ -9,7 +9,8 @@ const ModalDeleteOrders = ({data,orders}) => {
 
   const {successModal} = useSelector(state => state.universal)
   const [alertMessage,setAlertMessage] = useState('')
-
+  const session = JSON.parse(sessionStorage.getItem('user'))
+  
   const handleProceed = () => {
       const newOrders = orders.orders.filter((item) => {
           return data.productid !== item.productid
@@ -27,7 +28,7 @@ const ModalDeleteOrders = ({data,orders}) => {
           ordertotal: orders.ordertotal,
           userinfo: orders.userinfo,
           id:orders._id
-        })
+        },{headers: { 'authorization': `${session.token}`}})
         .then((res) => {
           setAlertMessage(res.data.message)
           if (res.status === 200) {
@@ -42,7 +43,7 @@ const ModalDeleteOrders = ({data,orders}) => {
         .catch((err) => console.log(err))
 
       }else{
-          axios.delete(`${import.meta.env.VITE_URL}/deleteOrders/${orders._id}`)
+          axios.delete(`${import.meta.env.VITE_URL}/deleteOrders/${orders._id}`,{headers: { 'authorization': `${session.token}`}})
           .then((res) => {
             setAlertMessage(res.data.message)
             if (res.status === 200) {

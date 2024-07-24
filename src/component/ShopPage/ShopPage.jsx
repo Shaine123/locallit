@@ -12,12 +12,15 @@ const ShopPage = () => {
    const [items,setItems] = useState([])
    const {successModal} = useSelector(state => state.universal)
    const [activeState,setActiveState] = useState(1)
+   const session = JSON.parse(sessionStorage.getItem('user'))
+   
 
+   
    const [searched,setSearched] = useState([])
 
    const {name} = useParams()
    useEffect(() => {
-     axios.get(`${import.meta.env.VITE_URL}/getItem`)
+     axios.get(`${import.meta.env.VITE_URL}/getItem`,)
      .then(res => {
       setItems(res.data)
       try {

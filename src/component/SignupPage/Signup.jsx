@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './signup.css'
 import { useFormik } from 'formik'
 import { signupSchema } from '../../schemas'
@@ -10,15 +10,41 @@ import AlertModal from '../Modal/AlertModal/AlertModal'
 import { CarretIcon } from '../../assets/img'
 const Signup = () => {
 
+  const [allUsers,setAllUsers] = useState([])
+
+  useEffect(() => {
+     axios.get(`${import.meta.env.VITE_URL}/findUsers`)
+     .then((res) => {
+        setAllUsers(res.data)
+     })
+  },[])
+
   const {successModal} = useSelector(state => state.universal)
   const [message,setMessage] = useState('')
+  const [customError,setCustomError] = useState(false)
   const dispatch = useDispatch()
 
   const [profile,setProfile] =  useState({name:'Choose Profile' , url: ' '})
   const [openSelect,setOpenSelect] = useState(false)
 
   const submitForm = (values) => {
-       axios.post(`${import.meta.env.VITE_URL}/addUser`,values )
+
+       const checkEmail = allUsers.filter((item) => {
+            return item.email == values.email
+       })
+       if(checkEmail.length <= 0){
+        axios.post(`${import.meta.env.VITE_URL}/addUser`,{
+        username: values.username,
+        userimage: profile,
+        firstname: values.firstname,
+        lastname: values.lastname,
+        phonenumber: values.phonenumber,
+        email: values.email,
+        address: values.address,
+        password: values.password,
+        confirmpassword: values.confirmpassword,
+        accesstype: 'user'
+       } )
        .then((res) => {
             setMessage(res.data.message)
            if(res.status === 200){
@@ -29,6 +55,10 @@ const Signup = () => {
            } 
        })
        .catch(err => console.log(err))
+      }else{
+        setCustomError(true)
+      }
+   
   }
   const {values, handleChange, handleSubmit, handleBlur,  errors, touched} = useFormik({
       initialValues: {
@@ -51,6 +81,8 @@ const Signup = () => {
     setProfile(value)
     setOpenSelect(false)
   }
+
+
   return (
      <>
         <div className="signuppage-container">
@@ -196,7 +228,12 @@ const Signup = () => {
                 onChange = {handleChange}
               />
              <div className="error-container">
-                {errors.email && touched.email && <p className='form-error'>{errors.email}</p>}
+                {   
+                   customError ? 
+                    <p className='form-error'>Email already exist</p>
+                   :
+                   errors.email && touched.email && <p className='form-error'>{errors.email}</p>   
+                }
             </div>
              </div>
               <div> 

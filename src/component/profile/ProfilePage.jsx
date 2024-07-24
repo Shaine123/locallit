@@ -35,7 +35,7 @@ const ProfilePage = () => {
 
 
   useEffect(() => {
-     axios.get(`${import.meta.env.VITE_URL}/findUser/${session.username}`)
+     axios.get(`${import.meta.env.VITE_URL}/findUser/${session.email}`,{headers: { 'authorization': `${session.token}`}})
      .then(res => {
       setData(res.data[0])
       setProfile({name:res.data[0].userimage.name , url: res.data[0].userimage.url })
@@ -59,7 +59,7 @@ const ProfilePage = () => {
         password:  values.password === '' ? data.password : values.password,
         accesstype: session.accesstype,
         id: data._id
-     })
+     },{headers: { 'authorization': `${session.token}`}})
      .then((res) => {
       setAlertMessage(res.data.message)
       if (res.status === 200) {

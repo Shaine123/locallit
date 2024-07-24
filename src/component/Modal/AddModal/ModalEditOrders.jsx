@@ -10,6 +10,7 @@ const ModalEditOrders = ({orders,data}) => {
    const dispatch = useDispatch()
    const {successModal} = useSelector(state => state.universal)
    const [alertMessage,setAlertMessage] = useState('')
+   const session = JSON.parse(sessionStorage.getItem('user'))
 
    const submitForm = () => {
        const newOrders = orders.orders.map((item) => {
@@ -34,7 +35,7 @@ const ModalEditOrders = ({orders,data}) => {
         ordertotal: orders.ordertotal,
         userinfo: orders.userinfo,
         id:orders._id
-      })
+      },{headers: { 'authorization': `${session.token}`}})
       .then((res) => {
         setAlertMessage(res.data.message)
         if (res.status === 200) {

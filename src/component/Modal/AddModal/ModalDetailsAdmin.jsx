@@ -7,7 +7,7 @@ const ModalDetailsAdmin = ({data, orders}) => {
 
   console.log(orders)
   const dispatch = useDispatch()
-
+ 
   return (
     <div className='modal-bg' style={{paddingTop: '50px', paddingLeft: '24vw'}}>
        <div className="modal-container-summary" >

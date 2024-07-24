@@ -42,6 +42,11 @@ import {default as CancelIcon} from './icons/cancel.png'
 import {default as DeleteIcon} from './icons/delete.png'
 import {default as EditIcon} from './icons/editIcon.png'
 import {default as ViewIcon} from './icons/eye.png'
+import {default as CustomerIcon} from './icons/customerIcon.png'
+import {default as OrderIconAdmin} from './icons/ordersIconAdmin.png'
+import {default as ProductIconAdmin} from './icons/productIconAdmin.png'
+import {default as LogoutIcon} from './icons/logoutadmin.png'
+import {default as InventoryIcon} from './icons/inventoryadmin.png'
 
 //@desc images for the items in the shop sections
 import {default as DuneBook1} from './items/Dune1.jpeg'
@@ -81,6 +86,11 @@ export {
     DeleteIcon,
     EditIcon,
     CardIcon,
+    CustomerIcon,
+    OrderIconAdmin,
+    ProductIconAdmin,
+    LogoutIcon,
+    InventoryIcon,
     ViewIcon,
     RatingStarIconColor,
     RatingStarIconFill,

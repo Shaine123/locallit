@@ -14,6 +14,13 @@ import CheckOutPage from './component/checkoutpage/CheckOutPage'
 import ProfilePage from './component/profile/ProfilePage'
 import OrderPage from './component/orders/OrderPage'
 import OrderPageAdmin from './pages/orderpage-admin/OrderPageAdmin'
+import DashboardPage from './pages/dashpage/DashboardPage'
+
+// console.log = function() {};
+// console.error = function() {};
+// console.warn = function() {};
+// console.info = function() {};
+
 const Pages = () => {
   return (
      <>
@@ -27,6 +34,7 @@ const Pages = () => {
                <Route path='/locallit/productpage/:id' element={<ProductPage/>}/>
                <Route path='/locallit/cartpage' element = {<Cart/>}/>
                <Route path='/locallit/checkoutpage' element = {<CheckOutPage/>}/>
+               <Route path='/locallit/checkoutpage/:oneItem' element = {<CheckOutPage/>}/>
                <Route path='/locallit/profilepage' element = {<ProfilePage/>}/>
                <Route path='/locallit/orderpage' element = {<OrderPage/>}/>
             </Route>
@@ -36,6 +44,7 @@ const Pages = () => {
              <Route  element = {<AdminPage/>} >
                 <Route  path='/localit/adminpage/itempage' element = {<ItemPage/>}/> 
                 <Route  path='/localit/adminpage/orderpageadmin' element = {<OrderPageAdmin/>}/> 
+                <Route path='/locallit/adminpage/dashboardpage' element = {<DashboardPage/>}/>
              </Route>
             </Route>
         </Routes>

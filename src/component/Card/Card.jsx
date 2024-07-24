@@ -6,12 +6,18 @@ import { useDispatch } from 'react-redux'
 
 const images = import.meta.glob('../../assets/img/items/*')
 const Card =  ({productname,productprice,productimage,productid,productReviews,productRatings,productDescription,productGenre}) => {
-   
+ 
+const session = JSON.parse(sessionStorage.getItem('user'))
+
  const navigate = useNavigate()
  const dispatch = useDispatch()
 
  const handleNavigate = () => {
-    navigate(`/locallit/productpage/${productid}`)
+    if(session !== null){
+     navigate(`/locallit/productpage/${productid}`)
+    }else{
+        navigate('/locallit/login')
+    }
  }
   return (
       <> 

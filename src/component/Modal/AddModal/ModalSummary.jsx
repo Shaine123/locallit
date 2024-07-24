@@ -5,7 +5,7 @@ import { openSummaryModal } from '../../../state/universalSlice'
 
 const ModalSummary = ({data, orders}) => {
   
-  console.log(orders)
+
 
   const dispatch = useDispatch()
   return (
